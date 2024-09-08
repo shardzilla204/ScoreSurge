@@ -14,7 +14,7 @@
     <script defer src="{{ url_for('static', filename='js/base.js') }}"></script>
     <title>ScoreSurge</title>
 </head>
-<body>
+<body {% block attributes %}{% endblock %}>
     <div class="grid-container">
         <div class="header">
             <!-- Splitting the header in 2, elements to co-exist on different sides -->
@@ -38,8 +38,8 @@
         <!-- Side bar html -->
         <div class="side-navigation">
             <a href="{{ url_for('home') }}">Home</a>
-            <a href="#">Time Table</a>
-            <a href="#">Study Tracker</a>
+            <a href="{{ url_for('timetable') }}">Timetable</a>
+            <a href="{{ url_for('study_tracker') }}">Study Tracker</a>
             <a href="{{ url_for('grades') }}">Grades</a>
     
             <!-- Allows for the dropdown to be active in notes.html and classes.html -->

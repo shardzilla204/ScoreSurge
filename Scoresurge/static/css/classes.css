@@ -15,18 +15,8 @@
 }
 
 .period-information .period-content {
-
     border: 1px solid grey;
     border-radius: 5px;
-
-    /* width: 100%;
-    height: auto;
-    resize: both;
-    box-sizing: border-box;
-    overflow: hidden;
-    min-height: 50px;
-    padding: 10px;
-    line-height: 1.5; */
 }
 
 .period-section #period-information-title {
@@ -47,7 +37,7 @@
     border: 1px solid black;
     border-radius: 10px;
 
-    /* Seperating from the table     */
+    /* Seperating from the table */
     margin-bottom: 25px;
 }
 
@@ -81,6 +71,10 @@ td:not(#week-row) {
     vertical-align: top
 }
 
+#week-row {
+    text-align: center;
+}
+
 #no-class {
     background-color: rgb(149, 235, 149);
 }
@@ -93,4 +87,12 @@ td:not(#week-row) {
     text-align: center;
     font-weight: 500;
     text-decoration: underline;
+}
+
+#good-grade {
+    color: green;
+}
+
+#bad-grade {
+    color: red;
 }
