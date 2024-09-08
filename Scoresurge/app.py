@@ -4,7 +4,6 @@ from flask_restful import Resource, Api, reqparse, fields, marshal_with, abort
 from flask_migrate import Migrate
 from datetime import datetime
 
-
 # Flask config.
 app = Flask(__name__, template_folder="templates")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///./database.db"
