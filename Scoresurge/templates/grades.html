@@ -12,7 +12,9 @@
 <div id="edit-grades-modal" class="modal">
     <div class="modal-content">
 
-        <div class="close"><img src="{{ url_for('static', filename='icons/x.svg') }}"></div>
+        <div class="close-button">
+            <img src="{{ url_for('static', filename='icons/x.svg') }}">
+        </div>
 
         <form id="edit-grades-form" action="{{ url_for('edit_grades') }}" method="post">
 
@@ -50,7 +52,7 @@
 
 {% block content %}
     <p id="class-info-header">
-        Grades for all classes:
+        Grades for All Classes:
     </p>
 
     <table>
@@ -58,8 +60,8 @@
             <tr>
                 <!-- Blank for the side column -->
                 <th>Class</th>
-                <th>Semester 1</th>
-                <th>Semester 2</th>
+                <th>1st Semester</th>
+                <th>2nd Semester</th>
             </tr>
         </thead>
 
@@ -74,7 +76,7 @@
         </tbody>
     </table>
 
-    <button type="submit" id="add-btn" class="edit-grades-btn">
+    <button type="submit" id="add-button" class="edit-grades-button">
         <img src="{{ url_for('static', filename='icons/edit.svg') }}">
     </button>
 {% endblock %}

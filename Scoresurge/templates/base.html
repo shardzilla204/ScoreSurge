@@ -10,49 +10,125 @@
     {% block styles %}{% endblock %}
 
     <!-- Importing icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
+    <script defer src="https://unpkg.com/feather-icons"></script>
+    <script defer src="{{ url_for('static', filename='js/base.js') }}"></script>
     <title>ScoreSurge</title>
 </head>
 <body>
-    <div class="header">
-        <!-- Splitting the header in 2, elements to co-exist on different sides -->
+    <div class="grid-container">
+        <div class="header">
+            <!-- Splitting the header in 2, elements to co-exist on different sides -->
+    
+            <div class="header-left">
+                <div id="menu-button">
+                    <img id="menu-icon" src="{{ url_for('static', filename='icons/menu.svg') }}">
+                </div>
+    
+                <p id="scoresurge">ScoreSurge</p>
+            </div>
+    
+            <div class="header-right">
+                <!-- TODO: LOGIN NAME SYSTEM HERE: -->
+                <p>{{ username }}</p>
+                <button type="button" id="settings-button">
+                    <img id="settings-icon" src="{{ url_for('static', filename='icons/settings.svg') }}">
+                </button>
+            </div>
+        </div>
+        <!-- Side bar html -->
+        <div class="side-navigation">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="#">Time Table</a>
+            <a href="#">Study Tracker</a>
+            <a href="{{ url_for('grades') }}">Grades</a>
+    
+            <!-- Allows for the dropdown to be active in notes.html and classes.html -->
+            <div class="dropdown {% block class_active %}{% endblock %}">
+                <div class="dropdown-toggle">
+                    <img id="toggle-icon" src="{{ url_for('static', filename='icons/chevron-right.svg') }}"/>
 
-        <div class="header-left">
-            <button type="button" id="menu-btn"><img id="menu-icon" src="{{ url_for('static', filename='icons/menu.svg') }}"></button>
+                    <p id="dropdown-toggle-header">Classes</p>
 
-            <p id="scoresurge">ScoreSurge</p>
+                    <button type="submit" id="add-button" class="add-class-button">
+                        <img id="add-class-icon" src="{{ url_for('static', filename='icons/plus.svg') }}">
+                    </button>
+                </div>
+    
+                <div class="dropdown-content">
+                    <!-- If there are no notes -->
+                    {% if classes | length < 1 %}
+                        <p> You have no classes.</p>
+    
+                    <!-- Displaying notes -->
+                    {% else %}
+                        {% for class in classes %}
+    
+                            <a href="{{ url_for('classes', page_id=class.page_id) }}">
+                                <img id="class-icon" src="{{ url_for('static', filename='icons/zap.svg') }}">
+                                {{ class.class_name }}
+                            </a>
+    
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+    
+            <div class="dropdown {% block note_active %}{% endblock %}">
+                <div class="dropdown-toggle">
+                    <img id="toggle-icon" src="{{ url_for('static', filename='icons/chevron-right.svg') }}"/>
+    
+                    <p id="dropdown-toggle-header">Notes</p>
+                </div>
+    
+                <div class="dropdown-content">
+    
+                    <!-- If there are no notes -->
+                    {% if notes | length < 1 %}
+                        <p> You have no notes. </p>
+    
+                    <!-- Displaying notes -->
+                    {% else %}
+                        {% for note in notes %}
+    
+                            <a href="{{ url_for('notes', page_id=note.page_id) }}">
+                                <img id="class-icon" src="{{ url_for('static', filename='icons/zap.svg') }}">
+                                {{ note.note_name }}
+                            </a>
+    
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
 
-        <div class="header-right">
-            <!-- TODO: LOGIN NAME SYSTEM HERE: -->
-            <p>{{ username }}</p>
-            <button type="button" id="settings-btn"><img id="settings-icon" src="{{ url_for('static', filename='icons/settings.svg') }}"></button>
+        <div class="content">
+            {% block content %}{% endblock %}
         </div>
     </div>
-
-
     <!-- Modal Code (for text box creating) -->
 
     <!-- Class & Note Creating: -->
     <div id="class-modal" class="modal">
         <div class="modal-content">
-
-            <div class="close"><img src="{{ url_for('static', filename='icons/x.svg') }}"></div>
+            <div class="close-button">
+                <img src="{{ url_for('static', filename='icons/x.svg') }}">
+            </div>
 
             <form id="new-class-form" action="{{ url_for('create_class') }}" method="post">
-                <label for="class-name">Name of new class*</label>
+                <label for="class-name">(*) Name of New Class:</label>
                 <br><input type="text" id="class-name" name="class_name" autocomplete="off" required><br><br>
 
-                <label for="teacer-name">Teacher* </label>
+                <label for="teacher-name">(*) Teacher:</label>
                 <br><input type="text" id="teacher-name" name="teacher" autocomplete="off" required><br><br>
 
-                <label for="class-room">Class room* </label>
+                <label for="class-room">(*) Classroom:</label>
                 <br><input type="text" id="class-room" name="class_room" autocomplete="off" required><br><br>
 
-                <label for="grade-semester-1">Grade Semester 1: </label>
+                <label for="grade-semester-1">Grade Semester 1:</label>
                 <input type="text" id="grade-semester-1" name="grade_semester_1" autocomplete="off"><br>
 
-                <label for="grade-semester-2">Grade Semester 2: </label>
+                <label for="grade-semester-2">Grade Semester 2:</label>
                 <input type="text" id="grade-semester-2" name="grade_semester_2" autocomplete="off"><br>
 
                 <button type="submit">Add Class</button>
@@ -61,87 +137,8 @@
     </div>
 
     <!-- Planner Week Adding: -->
-
-
     {% block more_modals %}{% endblock %}
-
-
-    <!-- Side bar html -->
-    <div class="sidenav">
-        <a href="/home">Home</a>
-        <a href="#">TimeTable</a>
-        <a href="#">Study Tracker</a>
-        <a href="{{ url_for('grades') }}">Grades</a>
-
-        <!-- Allows for the dropdown to be active in notes.html and classes.html -->
-        <div class="dropdown {% block class_active %}{% endblock %}">
-
-            <a href="#" class="dropdown-toggle">
-                <img src="{{ url_for('static', filename='icons/chevron-right.svg') }}"/>
-
-                <p id="dropdown-toggle-header">Classes</p>
-
-                <button type="submit" id="add-btn" class="add-class-btn"></button>
-            </a>
-
-
-            <div class="dropdown-content">
-                <!-- If there are no notes -->
-                {% if classes | length < 1 %}
-                    <p> You have no classes.</p>
-
-                <!-- Displaying notes -->
-                {% else %}
-                    {% for class in classes %}
-
-                        <a href="{{ url_for('classes', page_id=class.page_id) }}">
-                            <img id="class-icon" src="{{ url_for('static', filename='icons/zap.svg') }}">
-                            {{ class.class_name }}
-                        </a>
-
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="dropdown {% block note_active %}{% endblock %}">
-
-            <a href="#" class="dropdown-toggle">
-                <img src="{{ url_for('static', filename='icons/chevron-right.svg') }}"/>
-
-                <p id="dropdown-toggle-header">Notes</p>
-            </a>
-
-            <div class="dropdown-content">
-
-                <!-- If there are no notes -->
-                {% if notes | length < 1 %}
-                    <p> You have no notes. </p>
-
-                <!-- Displaying notes -->
-                {% else %}
-                    {% for note in notes %}
-
-                        <a href="{{ url_for('notes', page_id=note.page_id) }}">
-                            <img id="class-icon" src="{{ url_for('static', filename='icons/zap.svg') }}">
-                            {{ note.note_name }}
-                        </a>
-
-                    {% endfor %}
-                {% endif %}
-
-            </div>
-        </div>
-    </div>
-
-
-    <div class="content">
-        {% block content %}{% endblock %}
-        
-    </div>
     
-    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
     {% block scripts %}{% endblock %}
-
 </body>
 </html>

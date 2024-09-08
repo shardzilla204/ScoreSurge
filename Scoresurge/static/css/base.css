@@ -1,77 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-
-
-body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+:root
+{
+    --header-color: hsl(207, 40%, 52%);
+    --main-color: hsl(207, 40%, 47%);
+    --button-color: hsl(203, 72%, 82%);
+    --button-color-hover: hsl(203, 73%, 77%);
+    --content-color: hsl(190, 20%, 94%);
+    --icon-size: 28px;
+    --icon-color: brightness(0) saturate(100%) invert(96%) sepia(14%) saturate(50%) hue-rotate(141deg) brightness(100%) contrast(93%);
+    --icon-color-hover: brightness(0) saturate(100%) invert(93%) sepia(6%) saturate(239%) hue-rotate(142deg) brightness(99%) contrast(93%);
+    --icon-background-color: hsl(203, 73%, 82%);
+    --icon-background-color-hover: hsl(203, 73%, 72%);
+    
 }
 
+body 
+{
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow: hidden;
+}
+
+.grid-container
+{
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 15vw auto auto auto;
+    grid-template-rows: 10vh auto;
+    grid-template-areas: 
+        'header header header header'
+        'side-navigation content content content';
+}
 
 /* Handling header information */
 .header {
-    display: flex;
+    grid-area: "header";
+    grid-column-start: 1;
+    grid-column-end: 5;
+
     justify-content: space-between;
-
-
-    margin: none;
-    width: 100%;
     align-items: center;
-    height: 5%;
-    background-color: black;
+    margin: 0;
+    background-color: var(--header-color);
     color: white;
-    position: fixed;
+    display: flex;
 }
 
 .header-right,
-.header-left {
+.header-left 
+{
     width: 50%;
     display: flex;
+    align-items: center;
 }
 
-.header-right {
+.header-right 
+{
     justify-content: right;
-    text-align: right;
-    align-items: right;
-
-    padding-right: 50px;
 }
 
-
-.header p {
-    margin: 0;
+.header-left 
+{
+    justify-content: left;
 }
 
+.header p 
+{
+    margin: 10px;
+}
 
-#scoresurge {
+#scoresurge 
+{
     font-size: 24px;
 }
 
-#settings-btn,
-#menu-btn {
-    background-color: none;
+#settings-button,
+#menu-button 
+{
     background: none;
     border: none;
-    cursor: pointer;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 20px;
 }
 
-/* Changing the menu icon from black to white */
+#settings-button:hover,
+#menu-button:hover
+{
+    clip-path: circle(28px);
+    background-color: hsl(207, 40%, 47%);
+}
+
+/* Changing the menu default-icon from black to white */
 #settings-icon,
-#menu-icon {
-    filter: invert(1);
+#menu-icon 
+{
+    filter: var(--icon-color);
+    width: var(--icon-size);
+    height: var(--icon-size);
 }
 
 /* -=-=-=-=-=-=-=- */
 
-
 /* Side nav section */
-.sidenav {
-    position: fixed;
-    top: 5%;
-    height: 100%;
-    width: 15%;
-    background-color: bisque;
+.side-navigation 
+{
+    grid-area: "side-navigation";
+    background-color: var(--main-color);
 
     display: flex;
     flex-direction: column;
@@ -79,56 +117,99 @@ body {
 
 /* The items in the navbar */
 .dropdown,
-.sidenav a {
+.side-navigation a 
+{
     flex: 0 0 5%; 
     text-align: center;
     line-height: 8vh; 
 
     font-size: 18px;
+    font-weight: 600;
     
-    
-    background-color: #f1f1f1; 
-    color: black; 
+    background-color: var(--button-color); 
+    color: white; 
     
     padding: 0; 
     margin: 0; 
     
+    cursor: pointer;
+
     text-decoration: none; 
-    border-bottom: 1px solid #ccc; 
+}
+
+.dropdown:hover, 
+.side-navigation a:hover
+{
+    background-color: var(--button-color-hover); 
+}
+
+/* Dropdown plus default-icon css: */
+.dropdown-toggle #add-button 
+{
+    clip-path: circle(16px);
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    
+    /* Weird button jank */
+    border: none;
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--icon-background-color);
+}
+
+
+:is(.dropdown:hover) .dropdown-toggle #add-button
+{
+    background-color: var(--button-color-hover); 
+}
+
+.dropdown-toggle #add-button img
+{
+    filter: var(--icon-color);
+}
+
+:is(.dropdown:hover) :is(#add-button:hover)
+{
+    background-color: var(--icon-background-color-hover);
 }
 
 /* don't touch, it works */
-.dropdown .dropdown-content {
+.dropdown-content {
     display: flex;
     flex-direction: column;
+    
     background-color: #f1f1f1;
 
-    
     max-height: 0; 
     overflow: hidden;
     transition: max-height 0.3s ease; 
 }
 
-
-
 .dropdown-content a {
-    flex: 0 0 5%;
-    line-height: 3vh;
-    
-    text-align: left;
-    
-    padding-left: 50px;
+    display: flex;
+    align-items: center;
+    text-align: center;
     font-size: 16px;
     border: none;
+    background-color: var(--icon-background-color-hover);
 }
 
-.dropdown-content p {
+.dropdown-content p 
+{
     font-size: 20px;
 }
 
+.dropdown-content a:hover 
+{
+    background-color: hsl(203, 73%, 67%);
+}
 
-.dropdown .dropdown-content a:hover {
-    background-color: #ddd;
+#class-icon
+{
+    padding: 20px;
+    filter: var(--icon-color);
 }
 
 .dropdown-toggle {
@@ -138,62 +219,61 @@ body {
     justify-content: space-between; 
 
     /* These !importants feel weird now */
-    padding-left: 40px !important;
-    padding-right: 20px !important;
-
-    cursor: pointer;
+    padding: 0 20px;
+    /* padding-left: 40px !important;
+    padding-right: 20px !important; */
     
     border: none !important;
 }
 
 /* Dropdown Arrow css: */
-.dropdown-toggle img {
-    background: url("../icons/chevron-right.svg");
-    background-size: contain;
+.dropdown-toggle #toggle-icon 
+{
+    --icon-size: 25px;
+    width: var(--icon-size);
+    height: var(--icon-size);
 
-    width: 16px;
-    height: 16px;
+    filter: var(--icon-color);
 
-
-    transform: rotate(0deg);
     transition: transform 0.3s ease;
 }
 
+.dropdown.active .dropdown-toggle,
+.dropdown.active .dropdown-toggle #add-button
+{
+    background-color: var(--button-color-hover);
+}
 
-.dropdown.active .dropdown-toggle img {
+:is(.dropdown.active:hover) .dropdown-toggle #add-button:hover
+{
+    background-color: var(--icon-background-color-hover);
+}
+
+.dropdown.active .dropdown-toggle #toggle-icon 
+{
     transform: rotate(90deg); 
 }
 
 /* The "Classes" or "Notes" text heading: */
-#dropdown-toggle-header {
+#dropdown-toggle-header 
+{
     margin-left: 15px !important;
     text-align: left;
     flex-grow: 1;
 }
 
-
-/* Dropdown plus icon css: */
-.dropdown-toggle #add-btn {
-    background: url("../icons/plus.svg");
-    background-size: contain;
-    cursor: pointer;
-
-    width: 16px;
-    height: 16px;
-
-    /* Weird button jank */
-    border: none;
-}
-
-.dropdown-toggle #add-btn:hover {
-    background-color: #ddd;
+.dropdown-toggle #add-class-icon
+{
+    --icon-size: 20px;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin: 0;
+    padding: 0;
 }
 
 .dropdown-toggle form, p {
     margin: 0;
 }
-
-
 
 /* Expand dropdown with transition */
 .dropdown.active .dropdown-content {
@@ -202,12 +282,14 @@ body {
 }
 
 
-#class-icon {
+#class-default-icon {
     padding-right: 5px;
-    width: 15px;
-    height: 15px;
-}
 
+    --icon-size: 15px;
+
+    width: var(--icon-size);
+    height: var(--icon-size);
+}
 
 /* MODAL CODE */
 .modal {
@@ -223,16 +305,16 @@ body {
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto;
+    overflow: hidden;
 
     /* this gives it the "focus" look */
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
   
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--content-color);;
     margin: 15%; 
     padding: 20px;
     border: 1px solid #888;
@@ -240,24 +322,22 @@ body {
 }
 
 /* The Close Button */
-.close {
-    color: #aaa;
+.close-button 
+{
     float: right;
-    font-size: 28px;
-    font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
+.close-button:hover
+{
     text-decoration: none;
     cursor: pointer;
 }
 
 /*  CONTENT STUFF */
 
-.content {
-    margin-left: 15%; /* Adjusts content to the right of the sidebar */
-    padding: 20px;
-    padding-top: 50px;
+.content 
+{
+    background-color: var(--content-color);
+    grid-area: "content";
+    padding: 25px;
 }

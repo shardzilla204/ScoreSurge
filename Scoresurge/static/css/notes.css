@@ -1,39 +1,47 @@
+:root
+{
+    --light-grey: rgb(221, 221, 221);
+    --button-padding: 5px 10px;
+    --default-font-size: 16px;
+}
 
-
-.notes-textbox {
+.notes-textbox 
+{
     padding: 10px;
 }
 
-
 /* TOOLBAR SECTION */
-
-.toolbar {
+.toolbar 
+{
     display: flex;
 
-    border: 1px solid #ddd;
-    font-size: 16px;
-    color: black; /* Ensure text color is black for regular text */
+    border: 1px solid var(--light-grey);
+    font-size: var(--default-font-size);
+    /* color: black; Ensure text color is black for regular text */
 }
 
-.save-btn {
+.save-button 
+{
     border-right: 1px solid grey;
     padding: 10px;
 }
 
-#save-icon {
+#save-icon 
+{
     padding: 0;
     width: 16px;
     height: 16px;
 }
 
-.tools {
+.tools 
+{
     padding: 10px;
 }
 
 .toolbar button {
-    padding: 5px 10px;
+    padding: var(--button-padding);
 
-    font-size: 16px;
+    font-size: var(--default-font-size);
     border: none;
     background-color: white;
 
@@ -42,35 +50,37 @@
     border-radius: 7px;
 }
 
-.save-btn button{
+.save-button button{
     margin: 0 !important;
 }
 
 .toolbar button:hover {
-    background-color: #ddd;
+    background-color: var(--light-grey);
 }
 
 /* When the bold/ */
-.toolbar button.active {
-    background-color: #ddd;
-    padding: 5px 10px;
+.toolbar button.active 
+{
+    background-color: var(--light-grey);
+    padding: var(--button-padding);
 
-    font-size: 16px;
+    font-size: var(--default-font-size);
     cursor: pointer;
     margin-right: 5px;
     
     border: 1px solid grey;
 }
 
-
-.font-selection {
+.font-selection 
+{
     /* Matching the button stuff */
-    padding: 5px 10px;
-    font-size: 16px;
+    padding: var(--button-padding);
+    font-size: var(--default-font-size);
 }
 
 /* TEXTBOX SECTION */
-.textbox-container {
+.textbox-container 
+{
     width: 100%;
     /* This is required for resize */
     position: relative;
@@ -78,11 +88,12 @@
 
 
 /* The text editing box */
-#editor {
+#editor 
+{
     min-height: 150px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--light-grey);
     padding: 10px;
-    font-size: 16px;
+    font-size: var(--default-font-size);
     line-height: 1.5;
     color: black; 
 

@@ -2,9 +2,6 @@
 /* MODAL CSS */
 .period-section {
     display: block;
-}
-
-.period-section {
     margin-bottom: 10px; 
 }
 
@@ -32,12 +29,12 @@
     line-height: 1.5; */
 }
 
-.period-section #period-info-title {
+.period-section #period-information-title {
     font-weight: 500;
 }
 
 /* CLASS INFORMATION CSS */
-.class-info {
+.class-information {
     display: flex;
 
     text-align: center;
@@ -54,20 +51,17 @@
     margin-bottom: 25px;
 }
 
-#class-info-header {
+#class-information-header {
     font-weight: 500;
     font-size: 18px;
 }
 
-.class-info div {
+.class-information div {
     text-align: center;
     align-items: center;
     padding: 10px;
     border-right: 1px solid black;
 }
-
-
-
 
 /* TABLE CSS */
 
